@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export function useFetch(method: string, endpoint: string) {
+export function useFetch(method: string, url: string, endpoint: string) {
     const [data, setData] = useState<any>(null);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [error, setError] = useState<boolean>(false);
@@ -9,17 +9,14 @@ export function useFetch(method: string, endpoint: string) {
         setIsLoading(true);
 
         try {
-            const response = await fetch(`${endpoint}?api_key=dgbTBSPlvCRYjxFpkP0vijv10xBPEdQgOjqN5Ux3`, {
-                method,
-                headers: { "Content-Type": "application/json" },
-            });
+            const response = await fetch(`${url}?api_key=dgbTBSPlvCRYjxFpkP0vijv10xBPEdQgOjqN5Ux3${endpoint}`, { method });
 
             if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
 
             const jsonData = await response.json();
             setData(jsonData);
         } catch (error) {
-            console.error("Error while fetching API :", endpoint, error);
+            console.error("Error while fetching API :", `${url}/${endpoint}`, error);
             setError(true);
         } finally {
             setIsLoading(false);
@@ -28,6 +25,7 @@ export function useFetch(method: string, endpoint: string) {
 
     useEffect(() => {
         fetchData();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const refetch = () => fetchData();
