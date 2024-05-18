@@ -1,44 +1,39 @@
 {
-  "expo": {
-    "name": "cosmic-pics",
-    "slug": "cosmic-pics",
-    "version": "1.0.0",
-    "owner": "wiizz",
-    "githubUrl": "https://github.com/wiizzl/cosmic-pics",
-    "orientation": "portrait",
-    "icon": "./assets/icon.png",
-    "scheme": "cosmicpics",
-    "platforms": [
-      "android",
-      "ios"
-    ],
-    "userInterfaceStyle": "automatic",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
-    "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      },
-      "versionCode": 1,
-      "package": "com.wiizz.cosmicpics"
-    },
-    "plugins": [
-      "expo-router"
-    ],
-    "experiments": {
-      "typedRoutes": true
-    },
-    "extra": {
-      "router": {
-        "origin": false
-      },
-      "eas": {
-        "projectId": "66caa2dc-8d06-4c43-9c0a-c2af90e21a6f"
-      }
+    "expo": {
+        "name": "Cosmic Pics",
+        "slug": "cosmic-pics",
+        "version": "1.0.0",
+        "owner": "wiizz",
+        "githubUrl": "https://github.com/wiizzl/cosmic-pics",
+        "orientation": "portrait",
+        "icon": "./assets/icon.png",
+        "scheme": "cosmicpics",
+        "platforms": ["android", "ios"],
+        "userInterfaceStyle": "automatic",
+        "splash": {
+            "image": "./assets/splash.png",
+            "resizeMode": "contain",
+            "backgroundColor": "#0b0a18"
+        },
+        "android": {
+            "adaptiveIcon": {
+                "foregroundImage": "./assets/adaptive-icon.png",
+                "backgroundColor": "#0b0a18"
+            },
+            "versionCode": 1,
+            "package": "com.wiizz.cosmicpics"
+        },
+        "plugins": ["expo-router"],
+        "experiments": {
+            "typedRoutes": true
+        },
+        "extra": {
+            "router": {
+                "origin": false
+            },
+            "eas": {
+                "projectId": "66caa2dc-8d06-4c43-9c0a-c2af90e21a6f"
+            }
+        }
     }
-  }
 }
