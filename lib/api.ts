@@ -9,7 +9,7 @@ export function useFetch(method: string, url: string, endpoint: string) {
         setIsLoading(true);
 
         try {
-            const response = await fetch(`${url}?api_key=dgbTBSPlvCRYjxFpkP0vijv10xBPEdQgOjqN5Ux3${endpoint}`, { method });
+            const response = await fetch(`${url}?api_key=${process.env.EXPO_PUBLIC_NASA_API_KEY}${endpoint}`, { method });
 
             if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
 

@@ -1,7 +1,7 @@
 import { globals } from "@/styles/globals";
 import "@/styles/globals.css";
 
-import FontAwesome from "@expo/vector-icons/FontAwesome";
+import { FontAwesome } from "@expo/vector-icons";
 import NetInfo from "@react-native-community/netinfo";
 import { ThemeProvider } from "@react-navigation/native";
 import { Stack } from "expo-router";
@@ -32,7 +32,7 @@ export default function RootLayout() {
     }
 
     return (
-        <SafeAreaView className="flex-1 bg-background px-3">
+        <SafeAreaView className="flex-1 px-3">
             <View className="flex-1 items-center justify-center">
                 <View className="flex-row gap-2.5">
                     <FontAwesome size={20} name="wifi" color="white" />

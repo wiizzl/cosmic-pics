@@ -1,15 +1,18 @@
-import FontAwesome from "@expo/vector-icons/FontAwesome";
-import { DateTimePickerAndroid, DateTimePickerEvent } from "@react-native-community/datetimepicker";
-import { Tabs } from "expo-router";
+import { Feather, FontAwesome, Ionicons, MaterialIcons } from "@expo/vector-icons";
+import DateTimePicker, { DateTimePickerEvent } from "@react-native-community/datetimepicker";
+import { Tabs, router } from "expo-router";
+import moment from "moment";
 import { useState } from "react";
-import { TouchableOpacity } from "react-native";
+import { Alert, Share, TouchableOpacity } from "react-native";
+
+import { useApodStore } from "@/context/apod";
+import { useFavStore } from "@/context/favorites";
 
 export default function TabLayout() {
-    const [date, setDate] = useState(new Date());
+    const { clearFavorites } = useFavStore();
+    const { selectedDate, setSelectedDate } = useApodStore();
 
-    const onChange = (event: DateTimePickerEvent, selectedDate?: Date) => {
-        if (selectedDate) setDate(selectedDate);
-    };
+    const [show, setShow] = useState<boolean>(false);
 
     return (
         <Tabs screenOptions={{ tabBarActiveTintColor: "white" }}>
@@ -19,27 +22,61 @@ export default function TabLayout() {
                     title: "Home",
                     headerTitle: "APODs of the last 7 days",
                     headerRight: () => (
-                        <TouchableOpacity
-                            onPress={() => {
-                                DateTimePickerAndroid.open({
-                                    value: date,
-                                    onChange,
-                                    mode: "date",
-                                    is24Hour: true,
-                                });
-                            }}
-                        >
-                            <FontAwesome className="mr-3" size={22} name="calendar-o" color="white" />
-                        </TouchableOpacity>
+                        <>
+                            <TouchableOpacity onPress={() => setShow(true)}>
+                                <FontAwesome className="mr-3" size={22} name="calendar-o" color="white" />
+                            </TouchableOpacity>
+                            {show && (
+                                <DateTimePicker
+                                    value={selectedDate}
+                                    mode="date"
+                                    maximumDate={new Date()}
+                                    minimumDate={new Date(1995, 5, 16)}
+                                    onChange={(event: DateTimePickerEvent, selectedDate: Date | undefined) => {
+                                        setShow(false);
+                                        if (selectedDate !== undefined && event.type !== "dismissed") {
+                                            setSelectedDate(selectedDate);
+                                            router.push("/details");
+                                        }
+                                    }}
+                                    themeVariant="dark"
+                                    positiveButton={{ label: "Confirm", textColor: "blue" }}
+                                    negativeButton={{ label: "Cancel", textColor: "red" }}
+                                />
+                            )}
+                        </>
                     ),
-                    tabBarIcon: ({ color }) => <FontAwesome size={25} name="home" color={color} />,
+                    tabBarIcon: ({ color }) => <Ionicons size={25} name="planet" color={color} />,
                 }}
             />
             <Tabs.Screen
-                name="gallery"
+                name="favorites"
                 options={{
-                    title: "Gallery",
-                    headerTitleAlign: "center",
+                    title: "Favorites",
+                    headerRight: () => (
+                        <TouchableOpacity
+                            onPress={() => {
+                                Alert.alert(
+                                    "Delete all your favorites ?",
+                                    "This action is irreversible.",
+                                    [
+                                        {
+                                            text: "Cancel",
+                                            style: "cancel",
+                                        },
+                                        {
+                                            text: "Confirm",
+                                            onPress: clearFavorites,
+                                            style: "destructive",
+                                        },
+                                    ],
+                                    { cancelable: false },
+                                );
+                            }}
+                        >
+                            <MaterialIcons className="mr-3" size={25} name="phonelink-erase" color="white" />
+                        </TouchableOpacity>
+                    ),
                     tabBarIcon: ({ color }) => <FontAwesome size={25} name="photo" color={color} />,
                 }}
             />
@@ -47,8 +84,31 @@ export default function TabLayout() {
                 name="settings"
                 options={{
                     title: "Settings",
-                    headerTitleAlign: "center",
                     tabBarIcon: ({ color }) => <FontAwesome size={25} name="cog" color={color} />,
+                }}
+            />
+            <Tabs.Screen
+                name="details"
+                options={{
+                    title: moment(selectedDate).format("MMMM DD - YYYY"),
+                    headerTitleAlign: "center",
+                    href: null,
+                    headerLeft: () => (
+                        <TouchableOpacity onPress={() => router.back()}>
+                            <Feather className="ml-3" size={22} name="arrow-left" color="white" />
+                        </TouchableOpacity>
+                    ),
+                    headerRight: () => (
+                        <TouchableOpacity
+                            onPress={() => {
+                                Share.share({
+                                    message: "",
+                                });
+                            }}
+                        >
+                            <Feather className="mr-3" size={22} name="share" color="white" />
+                        </TouchableOpacity>
+                    ),
                 }}
             />
         </Tabs>
