@@ -4,10 +4,12 @@ import { Image } from "expo-image";
 import moment from "moment";
 import { useEffect, useRef, useState } from "react";
 import { ActivityIndicator, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import YoutubePlayer from "react-native-youtube-iframe";
 
 import { useApodStore } from "@/context/apod";
 import { useFavStore } from "@/context/favorites";
 import { useFetch } from "@/lib/api";
+import { getYoutubeVideoId } from "@/lib/utils";
 
 interface fetchData {
     data: apodData;
@@ -24,7 +26,7 @@ export default function Details() {
     const { data, isLoading, error, refetch }: fetchData = useFetch(
         "GET",
         "https://api.nasa.gov/planetary/apod",
-        `&date=${moment(selectedDate).format("YYYY-MM-DD")}`,
+        `&date=${moment(selectedDate).format("YYYY-MM-DD")}&thumbs=true`,
     );
 
     const [isFavorite, setIsFavorite] = useState<boolean>(false);
@@ -74,14 +76,28 @@ export default function Details() {
                 ) : data ? (
                     <View className="flex gap-3">
                         {data?.media_type === "image" ? (
-                            <Image
-                                style={{ width: "100%", height: 300, borderRadius: 10 }}
-                                source={{ uri: data?.url }}
-                                contentFit="fill"
-                                transition={200}
-                            />
+                            <>
+                                <Image
+                                    style={{ width: "100%", height: 300, borderRadius: 10 }}
+                                    source={{ uri: data?.url }}
+                                    contentFit="fill"
+                                    transition={200}
+                                />
+                                <View>
+                                    <TouchableOpacity
+                                        className="items-center rounded-xl bg-secondary p-2"
+                                        onPress={() => downloadFile(data?.hdurl, data?.title)}
+                                    >
+                                        <Text className="text-foreground">Download image</Text>
+                                    </TouchableOpacity>
+                                </View>
+                            </>
+                        ) : data?.media_type === "video" ? (
+                            <View>
+                                <YoutubePlayer height={210} videoId={getYoutubeVideoId(data?.url)} />
+                            </View>
                         ) : (
-                            <Text className="text-foreground">The APOD of that day was not an image...</Text>
+                            <Text className="text-foreground">Unable to display APOD for this day</Text>
                         )}
                         <View className="flex-row justify-between">
                             <Text className="text-lg font-bold text-foreground">{data?.title}</Text>
@@ -99,17 +115,9 @@ export default function Details() {
                                 <FontAwesome size={20} name={isFavorite ? "star" : "star-o"} color="white" />
                             </TouchableOpacity>
                         </View>
-                        <View>
-                            <TouchableOpacity
-                                className="items-center rounded-xl bg-secondary p-2"
-                                onPress={() => downloadFile(data?.hdurl, data?.title)}
-                            >
-                                <Text className="text-foreground">Download image</Text>
-                            </TouchableOpacity>
-                        </View>
                         <View className="flex gap-1">
                             <Text className="text-muted-foreground">{data?.explanation}</Text>
-                            <Text className="text-sm text-muted-foreground">Credit : {data?.copyright}</Text>
+                            {data?.copyright && <Text className="text-sm text-muted-foreground">Credit : {data?.copyright}</Text>}
                         </View>
                     </View>
                 ) : (

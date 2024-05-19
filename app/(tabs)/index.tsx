@@ -21,7 +21,7 @@ export default function Home() {
     const { data, isLoading, error, refetch }: fetchData = useFetch(
         "GET",
         "https://api.nasa.gov/planetary/apod",
-        `&start_date=${moment().subtract(6, "days").format("YYYY-MM-DD")}&end_date=${moment().format("YYYY-MM-DD")}`,
+        `&start_date=${moment().subtract(6, "days").format("YYYY-MM-DD")}&end_date=${moment().format("YYYY-MM-DD")}&thumbs=true`,
     );
 
     useEffect(() => {
