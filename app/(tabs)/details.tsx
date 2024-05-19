@@ -1,9 +1,9 @@
 import { FontAwesome } from "@expo/vector-icons";
-import * as FileSystem from "expo-file-system";
 import { Image } from "expo-image";
+import * as MediaLibrary from "expo-media-library";
 import moment from "moment";
 import { useEffect, useRef, useState } from "react";
-import { ActivityIndicator, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { ActivityIndicator, Linking, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import YoutubePlayer from "react-native-youtube-iframe";
 
 import { useApodStore } from "@/context/apod";
@@ -42,25 +42,17 @@ export default function Details() {
         }
     }, [selectedDate, refetch, lastSelectedDate]);
 
-    const downloadFile = async (fileUri: string, fileTitle: string) => {
-        function getFileExtension(url: string) {
-            const pathname = new URL(url).pathname;
-            const filename = pathname.split("/").pop();
-            if (filename) return filename.split(".").pop();
-        }
-
+    const downloadImage = async (uri: string) => {
         try {
-            const result = await FileSystem.downloadAsync(
-                fileUri,
-                FileSystem.documentDirectory + fileTitle.toLocaleLowerCase().replace(/\s/g, "") + "." + getFileExtension(fileUri),
-            );
-            if (result.status === 200) {
-                console.log("Successfully downloaded file to :", result.uri);
-            } else {
-                console.log("Failed to download file with status code: ", result.status);
+            // Request device storage access permission
+            const { status } = await MediaLibrary.requestPermissionsAsync();
+            if (status === "granted") {
+                await MediaLibrary.saveToLibraryAsync(uri);
+
+                console.log("Image successfully saved");
             }
         } catch (error) {
-            console.log("Error while downloading file: ", error);
+            console.log(error);
         }
     };
 
@@ -70,9 +62,7 @@ export default function Details() {
                 {isLoading ? (
                     <ActivityIndicator size="large" color="white" />
                 ) : error ? (
-                    <Text className="text-foreground">
-                        Erreur lors du chargement des images. Vérifiez les status de l'API de la NASA.
-                    </Text>
+                    <Text className="text-foreground">Error loading images. Check NASA API status.</Text>
                 ) : data ? (
                     <View className="flex gap-3">
                         {data?.media_type === "image" ? (
@@ -83,21 +73,25 @@ export default function Details() {
                                     contentFit="fill"
                                     transition={200}
                                 />
-                                <View>
-                                    <TouchableOpacity
-                                        className="items-center rounded-xl bg-secondary p-2"
-                                        onPress={() => downloadFile(data?.hdurl, data?.title)}
-                                    >
-                                        <Text className="text-foreground">Download image</Text>
-                                    </TouchableOpacity>
-                                </View>
+                                <TouchableOpacity
+                                    className="items-center rounded-xl bg-secondary p-2"
+                                    onPress={() => downloadImage(data?.hdurl)}
+                                >
+                                    <Text className="text-foreground">Download image</Text>
+                                </TouchableOpacity>
                             </>
                         ) : data?.media_type === "video" ? (
-                            <View>
+                            <>
                                 <YoutubePlayer height={210} videoId={getYoutubeVideoId(data?.url)} />
-                            </View>
+                                <TouchableOpacity
+                                    className="items-center rounded-xl bg-secondary p-2"
+                                    onPress={() => Linking.openURL(data?.url)}
+                                >
+                                    <Text className="text-foreground">Open video in YouTube</Text>
+                                </TouchableOpacity>
+                            </>
                         ) : (
-                            <Text className="text-foreground">Unable to display APOD for this day</Text>
+                            <Text className="text-foreground">Unable to display APOD for this day.</Text>
                         )}
                         <View className="flex-row justify-between">
                             <Text className="text-lg font-bold text-foreground">{data?.title}</Text>
@@ -121,9 +115,7 @@ export default function Details() {
                         </View>
                     </View>
                 ) : (
-                    <Text className="text-foreground">
-                        Erreur lors du chargement des images, veuillez redémarrer l'application.
-                    </Text>
+                    <Text className="text-foreground">Error loading images, please restart the application.</Text>
                 )}
             </ScrollView>
         </SafeAreaView>

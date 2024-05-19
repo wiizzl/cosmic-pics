@@ -14,6 +14,34 @@ export default function TabLayout() {
 
     const [show, setShow] = useState<boolean>(false);
 
+    const calendarIcon = {
+        headerRight: () => (
+            <>
+                <TouchableOpacity onPress={() => setShow(true)}>
+                    <FontAwesome className="mr-3" size={22} name="calendar-o" color="white" />
+                </TouchableOpacity>
+                {show && (
+                    <DateTimePicker
+                        value={selectedDate}
+                        mode="date"
+                        maximumDate={new Date()}
+                        minimumDate={new Date(1995, 5, 16)}
+                        onChange={(event: DateTimePickerEvent, selectedDate: Date | undefined) => {
+                            setShow(false);
+                            if (selectedDate !== undefined && event.type !== "dismissed") {
+                                setSelectedDate(selectedDate);
+                                router.push("/details");
+                            }
+                        }}
+                        themeVariant="dark"
+                        positiveButton={{ label: "Confirm", textColor: "blue" }}
+                        negativeButton={{ label: "Cancel", textColor: "red" }}
+                    />
+                )}
+            </>
+        ),
+    };
+
     return (
         <Tabs screenOptions={{ tabBarActiveTintColor: "white" }}>
             <Tabs.Screen
@@ -21,32 +49,17 @@ export default function TabLayout() {
                 options={{
                     title: "Home",
                     headerTitle: "APODs of the last 7 days",
-                    headerRight: () => (
-                        <>
-                            <TouchableOpacity onPress={() => setShow(true)}>
-                                <FontAwesome className="mr-3" size={22} name="calendar-o" color="white" />
-                            </TouchableOpacity>
-                            {show && (
-                                <DateTimePicker
-                                    value={selectedDate}
-                                    mode="date"
-                                    maximumDate={new Date()}
-                                    minimumDate={new Date(1995, 5, 16)}
-                                    onChange={(event: DateTimePickerEvent, selectedDate: Date | undefined) => {
-                                        setShow(false);
-                                        if (selectedDate !== undefined && event.type !== "dismissed") {
-                                            setSelectedDate(selectedDate);
-                                            router.push("/details");
-                                        }
-                                    }}
-                                    themeVariant="dark"
-                                    positiveButton={{ label: "Confirm", textColor: "blue" }}
-                                    negativeButton={{ label: "Cancel", textColor: "red" }}
-                                />
-                            )}
-                        </>
-                    ),
                     tabBarIcon: ({ color }) => <Ionicons size={25} name="planet" color={color} />,
+                    ...calendarIcon,
+                }}
+            />
+            <Tabs.Screen
+                name="discover"
+                options={{
+                    title: "Discover",
+                    headerTitle: "Discover more APOD",
+                    tabBarIcon: ({ color }) => <FontAwesome size={25} name="eye" color={color} />,
+                    ...calendarIcon,
                 }}
             />
             <Tabs.Screen

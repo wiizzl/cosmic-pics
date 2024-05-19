@@ -1,10 +1,3 @@
-import { clsx, type ClassValue } from "clsx";
-import { twMerge } from "tailwind-merge";
-
-export function cn(...inputs: ClassValue[]): string {
-    return twMerge(clsx(inputs));
-}
-
 export function getYoutubeVideoId(url: string) {
     const regexp =
         /^https:\/\/www\.youtube\.com\/watch\?v=([a-zA-Z0-9_-]{11})|^https:\/\/www\.youtube\.com\/embed\/([a-zA-Z0-9_-]{11})/;
