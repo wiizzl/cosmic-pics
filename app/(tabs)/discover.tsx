@@ -24,7 +24,7 @@ export default function Discover() {
     const { data, isLoading, error, refetch }: fetchData = useFetch(
         "GET",
         "https://api.nasa.gov/planetary/apod",
-        `&count=20&thumbs=true`,
+        `&count=10&thumbs=true`,
     );
 
     return (

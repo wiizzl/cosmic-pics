@@ -44,7 +44,6 @@ export default function Details() {
 
     const downloadImage = async (uri: string) => {
         try {
-            // Request device storage access permission
             const { status } = await MediaLibrary.requestPermissionsAsync();
             if (status === "granted") {
                 await MediaLibrary.saveToLibraryAsync(uri);
