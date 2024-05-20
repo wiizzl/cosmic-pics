@@ -1,6 +1,6 @@
 <p align="center">
     <div align="center">
-        <img alt="icon" height="128" src="./assets/icon.png">
+        <img alt="icon" height="128" src="https://i.imgur.com/KlHKbU1.png">
         <h1>Cosmic-Pics</h1>
     </div>
 </p>
