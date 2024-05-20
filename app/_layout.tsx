@@ -28,7 +28,7 @@ export default function RootLayout() {
                     <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
                 </Stack>
             ) : (
-                <SafeAreaView className="flex-1">
+                <SafeAreaView className="flex-1 bg-background">
                     <View className="flex-1 items-center justify-center">
                         <View className="flex-row gap-2.5">
                             <FontAwesome size={20} name="wifi" color="white" />
