@@ -19,7 +19,7 @@ export default function Discover() {
 
     const headerHeight = useHeaderHeight();
     const tabHeight = useBottomTabBarHeight();
-    const height = Dimensions.get("window").height - tabHeight + headerHeight;
+    const height = Dimensions.get("window").height - tabHeight * 2 + headerHeight;
 
     const { data, isLoading, error, refetch }: fetchData = useFetch(
         "GET",

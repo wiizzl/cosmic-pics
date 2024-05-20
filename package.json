@@ -1,7 +1,7 @@
 {
     "name": "cosmic-pics",
     "main": "expo-router/entry",
-    "version": "1.0.0",
+    "version": "1.0",
     "scripts": {
         "start": "expo start -c",
         "eas-build-post-install": "tailwindcss -i ./styles/globals.css -o ./node_modules/.cache/nativewind/styles/globals.css.native.css",
@@ -21,6 +21,7 @@
         "@react-navigation/native": "^6.1.17",
         "expo": "~51.0.8",
         "expo-constants": "~16.0.1",
+        "expo-device": "~6.0.2",
         "expo-file-system": "~17.0.1",
         "expo-image": "~1.12.9",
         "expo-linking": "~6.3.1",

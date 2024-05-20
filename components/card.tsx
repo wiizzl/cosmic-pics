@@ -1,6 +1,6 @@
 import { Image } from "expo-image";
 import { router } from "expo-router";
-import { Text, TouchableOpacity, View } from "react-native";
+import { Pressable, Text, View } from "react-native";
 
 import { useApodStore } from "@/context/apod";
 
@@ -9,7 +9,7 @@ export default function Card({ item, height, legend }: { item: apodData; height:
 
     return (
         <View style={{ marginBottom: 18 }}>
-            <TouchableOpacity
+            <Pressable
                 onPress={() => {
                     setSelectedDate(new Date(item?.date));
                     router.push("/details");
@@ -35,7 +35,7 @@ export default function Card({ item, height, legend }: { item: apodData; height:
                 >
                     {legend}
                 </Text>
-            </TouchableOpacity>
+            </Pressable>
         </View>
     );
 }

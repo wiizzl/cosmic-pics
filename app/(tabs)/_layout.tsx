@@ -73,15 +73,8 @@ export default function TabLayout() {
                                     "Delete all your favorites ?",
                                     "This action is irreversible.",
                                     [
-                                        {
-                                            text: "Cancel",
-                                            style: "cancel",
-                                        },
-                                        {
-                                            text: "Confirm",
-                                            onPress: clearFavorites,
-                                            style: "destructive",
-                                        },
+                                        { text: "Cancel", style: "cancel" },
+                                        { text: "Confirm", onPress: clearFavorites, style: "destructive" },
                                     ],
                                     { cancelable: false },
                                 );
@@ -94,10 +87,21 @@ export default function TabLayout() {
                 }}
             />
             <Tabs.Screen
-                name="settings"
+                name="about"
                 options={{
-                    title: "Settings",
-                    tabBarIcon: ({ color }) => <FontAwesome size={25} name="cog" color={color} />,
+                    title: "About",
+                    tabBarIcon: ({ color }) => <Feather size={25} name="info" color={color} />,
+                    headerRight: () => (
+                        <TouchableOpacity
+                            onPress={() => {
+                                Share.share({
+                                    message: "Hey ! Go checkout this app :",
+                                });
+                            }}
+                        >
+                            <Feather className="mr-3" size={22} name="share" color="white" />
+                        </TouchableOpacity>
+                    ),
                 }}
             />
             <Tabs.Screen
@@ -109,17 +113,6 @@ export default function TabLayout() {
                     headerLeft: () => (
                         <TouchableOpacity onPress={() => router.back()}>
                             <Feather className="ml-3" size={22} name="arrow-left" color="white" />
-                        </TouchableOpacity>
-                    ),
-                    headerRight: () => (
-                        <TouchableOpacity
-                            onPress={() => {
-                                Share.share({
-                                    message: "",
-                                });
-                            }}
-                        >
-                            <Feather className="mr-3" size={22} name="share" color="white" />
                         </TouchableOpacity>
                     ),
                 }}
