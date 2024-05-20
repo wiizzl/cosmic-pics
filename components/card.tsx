@@ -16,7 +16,7 @@ export default function Card({ item, height, legend }: { item: apodData; height:
                 }}
             >
                 <Image
-                    style={{ width: "100%", borderRadius: 10, height: height > 140 ? 200 : height }}
+                    style={{ width: "100%", borderRadius: 10, height: height }}
                     source={{ uri: item?.media_type === "image" ? item?.hdurl : item?.thumbnail_url }}
                     contentFit="cover"
                     transition={200}

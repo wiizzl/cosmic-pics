@@ -4,7 +4,6 @@ import { ActivityIndicator, RefreshControl, SafeAreaView, ScrollView, Text } fro
 
 import Card from "@/components/card";
 import { useApodStore } from "@/context/apod";
-import { useDiscoverStore } from "@/context/discover";
 import { useFavStore } from "@/context/favorites";
 import { useFetch } from "@/lib/api";
 
@@ -17,7 +16,6 @@ interface fetchData {
 
 export default function Home() {
     const { initialize } = useFavStore();
-    const { setDiscover } = useDiscoverStore();
     const { weekApod, setWeekApod } = useApodStore();
 
     const { data, isLoading, error, refetch }: fetchData = useFetch(
@@ -26,20 +24,13 @@ export default function Home() {
         `&start_date=${moment().subtract(6, "days").format("YYYY-MM-DD")}&end_date=${moment().format("YYYY-MM-DD")}&thumbs=true`,
     );
 
-    const { data: discoverData }: { data: apodData[] } = useFetch(
-        "GET",
-        "https://api.nasa.gov/planetary/apod",
-        `&count=10&thumbs=true`,
-    );
-
     useEffect(() => {
         initialize();
     }, [initialize]);
 
     useEffect(() => {
         if (data) setWeekApod(data.sort((a, b) => moment(b.date).diff(moment(a.date))));
-        if (discoverData) setDiscover(discoverData);
-    }, [data, discoverData, setWeekApod, setDiscover]);
+    }, [data, setWeekApod]);
 
     const [refreshing, setRefreshing] = useState<boolean>(false);
     const onRefresh = useCallback(() => {

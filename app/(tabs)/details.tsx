@@ -111,7 +111,7 @@ export default function Details() {
                         </View>
                         <View className="flex gap-1">
                             <Text className="text-muted-foreground">{data?.explanation}</Text>
-                            {data?.copyright && <Text className="text-sm text-muted-foreground">Credit : {data?.copyright}</Text>}
+                            {data?.copyright && <Text className="text-sm text-muted-foreground">Credit : {data.copyright}</Text>}
                         </View>
                     </View>
                 ) : (

@@ -18,7 +18,7 @@ export default function TabLayout() {
         headerRight: () => (
             <>
                 <TouchableOpacity onPress={() => setShow(true)}>
-                    <FontAwesome className="mr-3" size={22} name="calendar-o" color="white" />
+                    <FontAwesome className="mr-4" size={22} name="calendar-o" color="white" />
                 </TouchableOpacity>
                 {show && (
                     <DateTimePicker
@@ -57,7 +57,7 @@ export default function TabLayout() {
                 name="discover"
                 options={{
                     title: "Discover",
-                    headerTitle: "Discover more APOD",
+                    headerTransparent: true,
                     tabBarIcon: ({ color }) => <FontAwesome size={25} name="eye" color={color} />,
                     ...calendarIcon,
                 }}
