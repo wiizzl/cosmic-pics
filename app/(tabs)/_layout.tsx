@@ -95,7 +95,8 @@ export default function TabLayout() {
                         <TouchableOpacity
                             onPress={() => {
                                 Share.share({
-                                    message: "Hey ! Go checkout this app :",
+                                    message:
+                                        "Cosmic Pics is an innovative app that utilizes NASA's APOD (Astronomy Picture of the Day) API to display images in a smart and engaging way. With a user-friendly interface, you can easily browse APOD images using a calendar, or get lost in an infinite scrolling feed, similar to a famous app that allow you to infinite scroll.",
                                 });
                             }}
                         >

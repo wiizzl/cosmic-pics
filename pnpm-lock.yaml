@@ -92,6 +92,9 @@ importers:
       react-native-screens:
         specifier: 3.31.1
         version: 3.31.1(react-native@0.74.1(@babel/core@7.24.5)(@babel/preset-env@7.24.5(@babel/core@7.24.5))(@types/react@18.2.79)(react@18.2.0))(react@18.2.0)
+      react-native-wallpaper-manager:
+        specifier: ^0.3.16
+        version: 0.3.16
       react-native-webview:
         specifier: 13.8.6
         version: 13.8.6(react-native@0.74.1(@babel/core@7.24.5)(@babel/preset-env@7.24.5(@babel/core@7.24.5))(@types/react@18.2.79)(react@18.2.0))(react@18.2.0)
@@ -4136,6 +4139,7 @@ packages:
 
   osenv@0.1.5:
     resolution: {integrity: sha512-0CWcCECdMVc2Rw3U5w9ZjqX6ga6ubk1xDVKxtBQPK7wis/0F2r9T6k4ydGYhecl7YUBxBVxhL5oisPsNxAPe2g==}
+    deprecated: This package is no longer supported.
 
   p-finally@1.0.0:
     resolution: {integrity: sha512-LICb2p9CB7FS+0eR1oqWnHhp0FljGLZCWBE9aix0Uye9W8LTQPwMTYVGWQWIw9RdQiDg4+epXQODwIYJtSJaow==}
@@ -4460,6 +4464,9 @@ packages:
     peerDependencies:
       react: '*'
       react-native: '*'
+
+  react-native-wallpaper-manager@0.3.16:
+    resolution: {integrity: sha512-dmDg4c4bcJR4OLwR8Zd5N17xx7t3yq0h3a2b5huN+nnhm1lUwSgqmX4ZdGs8h8KZni8MKdY9/ujf7gl0yk8DPg==}
 
   react-native-webview@13.8.6:
     resolution: {integrity: sha512-jtZ9OgB2AN6rhDwto6dNL3PtOtl/SI4VN93pZEPbMLvRjqHfxiUrilGllL5fKAXq5Ry5FJyfUi82A4Ii8olZ7A==}
@@ -11148,6 +11155,8 @@ snapshots:
       react-freeze: 1.0.4(react@18.2.0)
       react-native: 0.74.1(@babel/core@7.24.5)(@babel/preset-env@7.24.5(@babel/core@7.24.5))(@types/react@18.2.79)(react@18.2.0)
       warn-once: 0.1.1
+
+  react-native-wallpaper-manager@0.3.16: {}
 
   react-native-webview@13.8.6(react-native@0.74.1(@babel/core@7.24.5)(@babel/preset-env@7.24.5(@babel/core@7.24.5))(@types/react@18.2.79)(react@18.2.0))(react@18.2.0):
     dependencies:

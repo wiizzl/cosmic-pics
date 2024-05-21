@@ -1,4 +1,5 @@
 import { FontAwesome } from "@expo/vector-icons";
+import * as FileSystem from "expo-file-system";
 import { Image } from "expo-image";
 import * as MediaLibrary from "expo-media-library";
 import moment from "moment";
@@ -44,13 +45,27 @@ export default function Details() {
     const downloadImage = async (uri: string) => {
         try {
             const { status } = await MediaLibrary.requestPermissionsAsync();
-            if (status === "granted") {
-                await MediaLibrary.saveToLibraryAsync(uri);
-
-                console.log("Image successfully saved");
+            if (status !== "granted") {
+                alert("Permission to access media library is required !");
+                return;
             }
+
+            const documentDirectory = FileSystem.documentDirectory;
+
+            if (!documentDirectory) {
+                throw new Error("File system document directory is not available.");
+            }
+
+            const fileUri = documentDirectory + uri.split("/").pop();
+            const { uri: localUri } = await FileSystem.downloadAsync(uri, fileUri);
+
+            const asset = await MediaLibrary.createAssetAsync(localUri);
+            await MediaLibrary.createAlbumAsync("Download", asset, false);
+
+            alert("Image downloaded successfully !");
         } catch (error) {
-            console.log(error);
+            console.error("Error downloading image:", error);
+            alert("Failed to download image.");
         }
     };
 
