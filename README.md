@@ -10,7 +10,7 @@
         <img alt="Expo Go" src="https://img.shields.io/badge/Runs%20with%20Expo%20Go-000.svg?style=flat-square&logo=EXPO&labelColor=f3f3f3&logoColor=000" />
     </a>
     <a aria-label="License" href="./LICENSE" target="_blank">
-        <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-success.svg?style=flat-square&color=000" target="_blank" />
+        <img alt="License: GPL-3.0" src="https://img.shields.io/badge/License-GPL3-success.svg?style=flat-square&color=000" target="_blank" />
     </a>
 </p>
 
