@@ -92,9 +92,6 @@ importers:
       react-native-screens:
         specifier: 3.31.1
         version: 3.31.1(react-native@0.74.1(@babel/core@7.24.5)(@babel/preset-env@7.24.5(@babel/core@7.24.5))(@types/react@18.2.79)(react@18.2.0))(react@18.2.0)
-      react-native-wallpaper-manager:
-        specifier: ^0.3.16
-        version: 0.3.16
       react-native-webview:
         specifier: 13.8.6
         version: 13.8.6(react-native@0.74.1(@babel/core@7.24.5)(@babel/preset-env@7.24.5(@babel/core@7.24.5))(@types/react@18.2.79)(react@18.2.0))(react@18.2.0)
@@ -3032,6 +3029,7 @@ packages:
 
   inflight@1.0.6:
     resolution: {integrity: sha512-k92I/b08q4wvFscXCLvqfsHCrjrF7yiXsQuIVvVE7N82W3+aqpzuUdBbfhWcy/FZR3/4IgflMgKLOsvPDrGCJA==}
+    deprecated: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
 
   inherits@2.0.4:
     resolution: {integrity: sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==}
@@ -4464,9 +4462,6 @@ packages:
     peerDependencies:
       react: '*'
       react-native: '*'
-
-  react-native-wallpaper-manager@0.3.16:
-    resolution: {integrity: sha512-dmDg4c4bcJR4OLwR8Zd5N17xx7t3yq0h3a2b5huN+nnhm1lUwSgqmX4ZdGs8h8KZni8MKdY9/ujf7gl0yk8DPg==}
 
   react-native-webview@13.8.6:
     resolution: {integrity: sha512-jtZ9OgB2AN6rhDwto6dNL3PtOtl/SI4VN93pZEPbMLvRjqHfxiUrilGllL5fKAXq5Ry5FJyfUi82A4Ii8olZ7A==}
@@ -11155,8 +11150,6 @@ snapshots:
       react-freeze: 1.0.4(react@18.2.0)
       react-native: 0.74.1(@babel/core@7.24.5)(@babel/preset-env@7.24.5(@babel/core@7.24.5))(@types/react@18.2.79)(react@18.2.0)
       warn-once: 0.1.1
-
-  react-native-wallpaper-manager@0.3.16: {}
 
   react-native-webview@13.8.6(react-native@0.74.1(@babel/core@7.24.5)(@babel/preset-env@7.24.5(@babel/core@7.24.5))(@types/react@18.2.79)(react@18.2.0))(react@18.2.0):
     dependencies:

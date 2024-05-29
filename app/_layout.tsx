@@ -32,15 +32,11 @@ export default function RootLayout() {
                     <View className="flex-1 items-center justify-center">
                         <View className="flex-row gap-2.5">
                             <FontAwesome size={20} name="wifi" color="white" />
-                            <Text className="mb-4 text-lg font-bold text-foreground">Connexion au WiFi requise</Text>
+                            <Text className="mb-4 text-lg font-bold text-foreground">WiFi connexion required</Text>
                         </View>
                         <View className="items-center">
-                            <Text className="text-sm text-foreground">
-                                Veuillez vous connecter à un réseau WiFi pour continuer...
-                            </Text>
-                            <Text className="text-sm text-foreground">
-                                Redémarrez l'application si vous êtes actuellement connecté.
-                            </Text>
+                            <Text className="text-sm text-foreground">Please connect to a WiFi to continue...</Text>
+                            <Text className="text-sm text-foreground">Restart the app if you are actually connected</Text>
                         </View>
                     </View>
                 </SafeAreaView>
